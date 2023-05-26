@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<!-- 
+Jeff   5/7/2023
+Vue3 Tutorial - netNinja
+https://www.youtube.com/watch?v=YrxBCBibVo0&list=PL4cUxeGkcC9hYYGbV60Vq3IXYNfDk8At1&index=1&t=705s&ab_channel=TheNetNinja
+
+omit "function" inside an object - is called shorthand notation:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#method_definitions
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vue3  Tutorial</title>
+    <link rel="stylesheet" href="css/practice.css">
+    
+    <!-- Vue3 -->
+    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+    
+    <!-- Vue3 Only for this video so it syncs with the tutorial -->
+    <script src="https://unpkg.com/vue@3.0.2"></script>
+
+    <link rel="icon" type="image/png" href="images/shoppingCart.jpg" sizes="32x32">
+
+    <script type="module" src="js/vue3.js" defer></script>
+</head>
+ <body>
+
+
+<div class="page-container">
+
+<div id="app">
+
+    <nav>
+      <div class="navbrand"><a class="logo" v-bind:href="url" target="_blank">WebDocs</a></div>
+      <img @click="showCart" src="images/shoppingCart.jpg" alt="">
+      <div class="cart-icon-quantity">{{ cartIconNumber }}</div>
+    </nav>
+    
+    <section>
+
+      <div class="products">
+        <ul>
+          <li class="card" v-bind:id="product.id" v-for="product in products">
+            <div class="left">
+              <div class="image"><img :src="product.image" alt=""></div>
+            </div>
+            <div class="right">
+              <div class="title">{{ product.title }}</div>
+              <div class="price">$ {{ product.ogPrice }}</div>
+          
+              <div class="button-container">
+              <button class="add" @click="updateCount($event,1)">+</button>
+              <div class="count">{{ product.count }} </div>
+              <button class="minus" @click="updateCount($event,1)">-</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>  <!-- end products -->
+
+      <div v-if="!showData" class="cart">
+        <ul>
+          <li class="row" v-bind:id="product.id" v-for="product in filteredCart">
+              <div class="title">{{ product.title }}</div>
+          
+              <div class="button-container">
+              <button class="add" @click="updateCount($event, 1)">+</button>
+              <div class="count">{{ product.count }} </div>
+              <button class="minus" @click="updateCount($event, 1)">-</button>
+              </div>
+
+              <div class="price">${{ product.price }}</div>
+          </li>
+
+          <li class="total-row row">
+            <span>Total</span>
+            <img  v-for="product in filteredCart" :class="{hidePaypal: product.count == 0}" src="images/buy-logo-small.png" alt="">
+            <div class="total-price">${{ cartTotalPrice }}</div>
+          </li>
+
+        </ul>
+      </div>  <!-- end cart -->
+    </section>
+
+</div>  <!-- end app -->
+
+</div>  <!-- end page-container -->
+
+
+
+
+   
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+ </body>
+</html>
+
+
+<!-- Mouse events -->
+
+<!-- 
+When passing our own arguments we have to explicitly tell JS we want the event object to be passed in as well.
+The "$" makes it possible, then something else for the second argument:  @mouseover="handleEvent($event, 4)
+-->
+
+<!-- <div class="box" @mouseover="handleEvent($event, 4)">mouse-over</div>
+<div class="box" @mouseleave="handleEvent">mouse-leave</div>
+<div class="box" @dblclick="handleEvent">double-click</div>
+<div class="box" @mousemove="handleMousemove">x:{{x}} y:{{y}}</div> -->
+  
